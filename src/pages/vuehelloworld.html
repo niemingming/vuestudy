@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>helloworld</title>
+
+    <script src="../javascripts/vue.js"></script>
+</head>
+<body>
+    <!--基本绑定--->
+    <div id="app">{{message}}</div>
+    <!--声明式；响应式绑定-->
+    <div id="app-2">
+        <span v-bind:title="message">
+            鼠标悬停展示消息
+        </span>
+    </div>
+    <!--条件循环-->
+    <div id="app-3">
+        <span v-if="age>20">20岁了</span>
+        <span v-if="age<=20">我还年轻</span>
+    </div>
+    <div id="app-4">
+        <ol>
+            <li v-for="data in datas">{{data.name}}}</li>
+
+        </ol>
+
+    </div>
+    <!--绑定事件-->
+    <div id="app-5">
+        <span>{{message}}</span></div></br>
+        <button v-on:click="reverseMsg">消息改变</button>
+    </div>
+    <!--双向绑定-->
+    <div id="app-6">
+        <span>{{message}}</span><br>
+        <input v-model="message">
+    </div>
+</body>
+</html>
+
+<script>
+    var appdd = new Vue({
+        el:"#app", //el选择器，目标元素
+        data:{ //数据绑定。做了数据的双向绑定，会将data的属性赋值给对象。
+            message:"hello vue!"//
+        }
+    });
+
+    var app2 = new Vue({ //v-bind被称为指令，指令以v-开头；v-bind是一种响应式的绑定。
+        el:"#app-2",
+        data:{
+            message:"hello vue!" + new Date().toLocaleString()
+        }
+    });
+    var app3 = new Vue({
+        el:"#app-3",
+        data:{
+            age:21
+        }
+    });//条件判断
+    //循环操作
+    var app4 = new Vue({
+        el:"#app-4",
+        data:{//都要绑定在data下面
+            datas:[
+                {name:"java权威指南"},
+                {name:"vue不好学"}
+            ]
+        }
+    });
+    //定义事件处理函数
+    var app5 = new Vue({
+        el:"#app-5",
+        data:{
+            message:"hello vue"
+        },
+        methods:{//定义函数，和事件处理函数。这里this应该就是创建的对象本身
+            reverseMsg:function(){
+                this.message = this.message.split(" ").reverse().join(" ");
+            }
+        }
+    });
+
+    var app6 = new Vue({
+        el:"#app-6",
+        data:{
+            message:"hello"
+        }
+    });
+</script>
