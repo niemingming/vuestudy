@@ -25,6 +25,25 @@
             calMessage:function(){//修改message的值
                 return this.message*10;
             }
+            /*
+            * fullName:{
+            *   get:function(){
+            *       return this.fullName
+            *   },
+            *   set:function(name){
+            *       this.firstName = ddd
+            *       this.lastName = ddd
+            *   }
+            * }
+            *
+            * 看起来计算属性很完美了，但是为什么还会有监听的，一是监听可以处理属性外的操作，二是监听更适合耗时长或者开销大的操作。
+            * 当然除了这种方式我们还可以是使用.$watch api添加侦听。
+            * */
+        },
+        watch:{//相较于侦听属性，计算属性更灵活些，因为一个依赖多个属性的逻辑，可能使用计算属性更加简洁便利。一般计算属性默认只有get方法，没有set，也可以强制些。set方法会在赋值时调用。
+            message:function(val,oval){
+                console.log(val + "----" + oval);
+            }
         }
     });
 </script>
