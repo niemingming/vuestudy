@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性</title>
+    <script src="../javascripts/vue.js"></script>
+</head>
+<body>
+    <div id="app-1">
+        <span>{{message}}</span><br>
+        <span>计算属性：{{calMessage}}</span>
+    </div>
+</body>
+</html>
+<script>
+    var app = new Vue({
+        el:"#app-1",
+        data:{
+            message:1
+        },
+        computed:{
+            //这里我们生命了计算属性calMessage，可以计算属性的函数可以理解为属性calMessage的getter方法。这里发现，计算属性也是会在响应中的。
+            //我们可以退通过<span>{{calMessage()}}</span>这种模板表达式来达到相似的效果，这里的方法需要定义在methods中，也就是说表达式的对象是vue对象本身，但是需要注意的是，计算属性是有缓存的，他是根据其依赖的属性为基础作为缓存的，如果其
+            //依赖的属性不发生变化，计算属性不会做重新渲染的。如果计算属性不是响应式依赖，即其不依赖任何响应属性，那么其值将会一直缓存中。
+            calMessage:function(){//修改message的值
+                return this.message*10;
+            }
+        }
+    });
+</script>
