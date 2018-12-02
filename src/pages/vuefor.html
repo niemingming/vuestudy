@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+    <script src="../javascripts/vue.js"></script>
+</head>
+<body>
+    <div id="app-1">
+        <span>遍历数组</span><br>
+        <ul>
+            <li v-for="arr in arrs">{{arr.name}}</li>
+        </ul>
+        <span>遍历数组,获取索引</span><br>
+        <ul>
+            <li v-for="(arr,index) in arrs">{{index}}:::{{arr.name}}</li>
+        </ul>
+        <span>遍历对象属性</span><br>
+        <ul>
+            <li v-for="key in obj">{{key}}</li>
+        </ul>
+        <span>遍历对象属性,获取key</span><br>
+        <ul>
+            <li v-for="(value,key,index) in obj">{{index}}::{{key}}::{{value}}</li>
+        </ul>
+        <span>计算属性的排序</span><br>
+        <ul>
+            <li v-for="n in reversexl">{{n}}</li>
+        </ul>
+        <span>继续函数的排序</span><br>
+        <ul>
+            <li v-for="n in reversesz(xl)">{{n}}</li>
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+    /*
+    * 注意v-for不能响应的情况。并特殊处理。通过Vue.set方法设置值是个不错的选择。
+    * */
+   var app = new Vue({
+       el:'#app-1',
+       data:{
+           arrs:[
+               {name:"vue入门"},
+               {name:"21天精通vue"},
+               {name:"vue24小时"}
+           ],
+           obj:{
+               name:"张三",
+               age:27,
+               sex:"男"
+           },
+           //排序数组
+           xl:[33,12,11,4,2,53]
+       },
+       computed:{//计算属性
+           reversexl:function(){
+               return this.xl.sort((a,b)=> a-b);
+               // return this.xl.sort(function(a,b){return a-b})
+           }
+       },
+       methods:{
+           reversesz:function(numbers){
+               return numbers.sort((a,b)=>b-a);
+               // return this.xl.sort(function(a,b){return b-a})
+           }
+       }
+   });
+</script>

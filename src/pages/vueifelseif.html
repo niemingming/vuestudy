@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+    <script src="../javascripts/vue.js"></script>
+</head>
+<body>
+    <div id="app-1">
+        <span v-if="age < 18">小朋友</span>
+        <span v-else-if="age < 60">成年人</span>
+        <span v-else>老年人</span>
+    </div>
+</body>
+</html>
+<script>
+    /**
+     * 与v-if类似的有v-show；v-if是真正的条件渲染，只有当条件为true是才执行渲染，因此其切换时开销较大。
+     * v-show是始终渲染，只是根据css样式的display控制显示隐藏，因此其初始化开销较大。
+     * */
+    var app = new Vue({
+        el:"#app-1",
+        data:{
+            age:1
+        }
+    });
+</script>
