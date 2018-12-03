@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件示例1</title>
+    <script src="../javascripts/vue.js"></script>
+    <script>
+        //创建简单组件实例
+        /*
+        * 组件就是可服用的Vue实例，因此其配置项也有data,methods,computed等等。再次说明，data必须是通过函数返回。
+        *
+        * 组件需要注意只能有一个根元素。
+        * */
+        Vue.component('demo',{
+            data:function(){
+               return {//定义属性，数据，这里的data的作用域为组件内部,自定义组件的data为了保证每一个实例的独立性，需要通过函数提供。
+                    count:0
+                }
+            },
+            template:'<button v-on:click="count++">点击{{count}}次</button>'
+        });
+        //定义子组件，接收父组件传递的值
+        Vue.component("demochild",{
+            props:{
+               title:String
+            },
+            template:'<li>{{title}}</li>'
+        });
+        //传递事件，这里我们用一个字符放大处理
+        Vue.component('eventdemo',{
+            props:['name'],//绑定父类信息
+            template:'<li>{{name}}<br><button @click="$emit(\'enlarge\')">放大</button></li>'
+        });
+        //我们也可以传递参数
+        Vue.component('paramdemo',{
+            data:function(){
+                return {
+                    name:"测试参数"
+                }
+            },//父级可以通过$event获取参数，也可以用函数处理父级事件，这样参数就会传到函数中。
+            template:'<li>{{name}}<br><button @click="$emit(\'ensmall\',-0.1)">缩小</button></li>'
+        });
+    </script>
+</head>
+<body>
+    <div id="app-1">
+        <demo></demo>
+        <ul>
+            <demochild :title="title"></demochild>
+            <eventdemo name="放大测试"
+                :style="{fontSize:postFontSize + 'em'}"
+                @enlarge="postFontSize += 0.1"></eventdemo>
+            <paramdemo :style="{fontSize:postFontSize + 'em'}"
+                @ensmall="postFontSize += $event"></paramdemo>
+        </ul>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({//必须通过vue对象绑定，要不然无法正常显示和绑定数据。
+        el:"#app-1",
+        data:{
+            title:'标题',
+            postFontSize:1
+        }
+    });
+</script>
