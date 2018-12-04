@@ -6,11 +6,12 @@
 
     <script src="../javascripts/vue.js"></script>
     <script src="../javascripts/vue-router.js"></script>
-
+    <script src="../components/demo1.vue"></script>
     <script>
         //声明组件并绑定，同时router不是用于页面间的跳转，用于组件的动态加载和控制
-        var demo1 = {
-            template:'<p>这是第一个组件</p>'};
+        //目前我们没有采用npm的模块化开发，索引import方式和Vue的组件模式不能加载，只能通过js的形式管理。
+        // var demo1 = {
+        //     template:'<p>这是第一个组件</p>'};
         var demo2 = {
             template:'<p>第二个组件来了</p>'
         };
