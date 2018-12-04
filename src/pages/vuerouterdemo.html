@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuerouter示例两种示例1</title>
+
+    <script src="../javascripts/vue.js"></script>
+    <script src="../javascripts/vue-router.js"></script>
+
+    <script>
+        //声明组件并绑定，同时router不是用于页面间的跳转，用于组件的动态加载和控制
+        var demo1 = {
+            template:'<p>这是第一个组件</p>'};
+        var demo2 = {
+            template:'<p>第二个组件来了</p>'
+        };
+
+        var routes = [
+            {
+                path:'/demo1',
+                component:demo1
+            },{
+                path:'/demo2',
+                component:demo2
+            }
+
+        ];
+        var router = new VueRouter({
+            routes:routes
+        });
+    </script>
+</head>
+<body>
+    <div id="app-1">
+        <!--声明路由，router-link会解析为a-->
+        <p>
+            <router-link to="/demo1">动画示例</router-link>
+            <router-link to="/demo2">组件示例</router-link>
+        </p>
+        <!--加载的内容会构建在这里-->
+        <router-view></router-view>
+    </div>
+</body>
+</html>
+<script>
+    var app = new Vue({
+        el:'#app-1',
+        router:router
+    });
+</script>
