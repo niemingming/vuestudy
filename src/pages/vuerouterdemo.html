@@ -6,6 +6,7 @@
 
     <script src="../javascripts/vue.js"></script>
     <script src="../javascripts/vue-router.js"></script>
+    <script src="../javascripts/vue-resource.js"></script>
     <script src="../components/demo1.vue"></script>
     <script>
         //声明组件并绑定，同时router不是用于页面间的跳转，用于组件的动态加载和控制
@@ -13,7 +14,21 @@
         // var demo1 = {
         //     template:'<p>这是第一个组件</p>'};
         var demo2 = {
-            template:'<p>第二个组件来了</p>'
+            template:'<div><p>{{msg}}</p><br><button @click="loaddata">加载</button></div>',
+            data:function(){
+                return {
+                    msg:"这是第二个组件"
+                }
+            },
+            methods:{
+                loaddata:function(){
+                    this.$http.get("../data/demodata.json").then(function(response){
+                        this.msg = response.body.msg;
+                    },function(){
+                        this.msg = '加载失败！';
+                    });
+                }
+            }
         };
 
         var routes = [
