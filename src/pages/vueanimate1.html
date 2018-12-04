@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画测试1</title>
+    <script src="../javascripts/vue.js"></script>
+    <style>
+        /**定义样式,定义动画过程状态，透明度用时1秒*/
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity 1s;
+        }
+        /*定义起止位置
+        一般过渡动画都是用于状态切换的处理中，包括几个阶段-enter -enter-to -enter-active同样的leave也包含。
+        */
+        .fade-enter, .fade-leave-to {
+            opacity: 0;
+        }
+        /*常用的方式就是通过css实现过渡，我们再来看一个例子*/
+        .slide-fade-enter-active{
+            transition: all 0.3s ease; /*定义过渡*/
+        }
+        .slide-fade-leave-active{
+            transition: all 0.8s cubic-bezier(1.0,0.5,0.8,1.0);
+        }
+        /*定义起止效果*/
+        .slide-fade-enter,.slide-fade-leave-to{
+            transform: translateX(10px);/*横移10像素*/
+            opacity: 0;
+        }
+        /*定义动画样式*/
+        @keyframes bounds-in {
+            0% {
+                transform:scale(0.1);
+            }
+            50% {
+                transform:scale(1.5);
+            }
+            100% {
+                transform:scale(1);
+            }
+        }
+        .bounds-enter-active{
+            animation: bounds-in 0.5s;
+        }
+        .bounds-leave-active{
+            animation: bounds-in 0.5s reverse;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-1">
+        <button @click="show = !show">切换</button><br>
+        <!--定义动画用在条件语句上-->
+        <transition name="fade">
+            <span v-if="show">hello vue!</span>
+        </transition>
+        <br>
+        <!--第二个动画-->
+        <transition name="slide-fade">
+            <p v-if="show">slide-fade</p>
+        </transition>
+        <br>
+
+    </div>
+    <div id="app-2">
+        <button @click="show = !show">切换</button><br>
+        <!--使用css3的动画样式-->
+        <transition name="bounds">
+            <p v-if="show" style="width: 200px;">这是一段会放到的文字</p>
+        </transition>
+    </div>
+</body>
+</html>
+<script>
+    var app = new Vue({
+        el:'#app-1',
+        data:{
+            show:true
+        }
+    });
+    var app2 = new Vue({
+        el:'#app-2',
+        data:{
+            show:true
+        }
+    });
+</script>
